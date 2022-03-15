@@ -1,10 +1,9 @@
 <template>
   <div
     :style="getStyledSectionWidth"
-    v-if="isSectionVisible"
-    :class="[{ hovered: isSectionHovered }, 'section']"
-    @mouseover="toggeClassHover"
-    @mouseleave="toggeClassHoverOut"
+    class="section"
+    @mouseover="toggleClassHover"
+    @mouseleave="toggleClassHoverOut"
   />
 </template>
 
@@ -20,9 +19,9 @@ export default {
       default: 0,
     },
 
-    isSectionHovered: {
-      type: Boolean,
-      default: false,
+    color: {
+      type: String,
+      default: "",
     },
   },
 
@@ -36,21 +35,19 @@ export default {
     getSectionWidth() {
       return (this.sectionCount / this.totalCount) * 100;
     },
+
     getStyledSectionWidth() {
       return `width: ${this.getSectionWidth}%;`;
-    },
-    isSectionVisible() {
-      return this.sectionCount > 0;
     },
   },
 
   methods: {
-    toggeClassHover() {
-      this.$emit("hover");
+    toggleClassHover() {
+      this.$emit("hover", this.color);
     },
 
-    toggeClassHoverOut() {
-      this.$emit("hoverOut");
+    toggleClassHoverOut() {
+      this.$emit("hoverOut", this.color);
     },
   },
 };
@@ -67,8 +64,4 @@ export default {
     box-shadow: none;
   }
 }
-
-// .section:not(.hovered) {
-//   opacity: 40%;
-// }
 </style>

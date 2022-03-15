@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scale__wrapper">
     <div v-for="(scale, ind) of scales" :key="ind" class="scale">
       <h3 class="scale__title">
         {{ scale.title }}
@@ -18,6 +18,7 @@
 <script>
 import ChartsBar from "@/components/ChartsBar/ChartsBar.vue";
 import data from "./mocks.json";
+
 export default {
   name: "ChartsList",
 
@@ -25,7 +26,7 @@ export default {
 
   data() {
     return {
-      scales: data,
+      scales: data.scales,
     };
   },
 };
@@ -34,7 +35,13 @@ export default {
 <style lang="scss">
 .scale {
   display: inline-flex;
-  margin-right: 40px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__title {
     font-size: 16px;
     margin-right: 15px;

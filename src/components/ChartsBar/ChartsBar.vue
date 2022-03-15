@@ -1,28 +1,40 @@
 <template>
   <div class="bar">
     <charts-section
+      v-if="greenSectionCount > 0"
       class="section--green"
       :section-count="greenSectionCount"
+      color="green"
+      ref="green"
       @hover="onSectionHover"
-      @out="onSectionOut"
+      @hoverOut="onSectionHoverOut"
     />
     <charts-section
+      v-if="yellowSectionCount > 0"
       class="section--yellow"
       :section-count="yellowSectionCount"
+      ref="yellow"
+      color="yellow"
       @hover="onSectionHover"
-      @out="onSectionOut"
+      @hoverOut="onSectionHoverOut"
     />
     <charts-section
+      v-if="redSectionCount > 0"
       class="section--red"
       :section-count="redSectionCount"
+      ref="red"
+      color="red"
       @hover="onSectionHover"
-      @out="onSectionOut"
+      @hoverOut="onSectionHoverOut"
     />
     <charts-section
+      v-if="graySectionCount > 0"
       class="section--gray"
-      :section-count="getGraySectionCount"
+      :section-count="graySectionCount"
+      ref="gray"
+      color="gray"
       @hover="onSectionHover"
-      @out="onSectionOut"
+      @hoverOut="onSectionHoverOut"
     />
   </div>
 </template>
@@ -41,35 +53,53 @@ export default {
       type: Number,
       default: 0,
     },
+
     yellowSectionCount: {
       type: Number,
       default: 0,
     },
+
     redSectionCount: {
       type: Number,
       default: 0,
-    },
-
-    isSectionHovered: {
-      type: Boolean,
-      default: false,
     },
   },
 
   data() {
     return {
       totalCount: TOTAL_COUNT,
+      colors: ["green", "yellow", "red", "gray"],
     };
   },
 
   computed: {
-    getGraySectionCount() {
+    graySectionCount() {
       return (
         this.totalCount -
         (this.greenSectionCount +
           this.yellowSectionCount +
           this.redSectionCount)
       );
+    },
+  },
+
+  methods: {
+    onSectionHover(color) {
+      this.colors.forEach((color) => {
+        if (this.$refs[color]) {
+          this.$refs[color].$el.classList.add("transparent");
+        }
+      });
+      this.$refs[color].$el.classList.add("hovered");
+    },
+
+    onSectionHoverOut(color) {
+      this.colors.forEach((color) => {
+        if (this.$refs[color]) {
+          this.$refs[color].$el.classList.remove("transparent");
+        }
+      });
+      this.$refs[color].$el.classList.remove("hovered");
     },
   },
 };
@@ -79,7 +109,7 @@ export default {
 .bar {
   cursor: pointer;
   display: inline-flex;
-  width: 300px;
+  width: 255px;
   border-radius: 5px;
   overflow: hidden;
   border: 1px #fff solid;
@@ -99,5 +129,13 @@ export default {
 
 .section--gray {
   background-color: #f2f2f2;
+}
+
+.transparent {
+  opacity: 0.08;
+}
+
+.hovered {
+  opacity: 1;
 }
 </style>
