@@ -1,0 +1,26 @@
+{
+    "Risk of Loss" : {
+        "title": "Risk of Loss",
+        "greenSectionCount": 4,
+        "yellowSectionCount": 10,
+        "redSectionCount": 12
+    },
+    "Impact of Loss" : {
+        "title": "Impact of Loss",
+        "greenSectionCount": 0,
+        "yellowSectionCount": 5,
+        "redSectionCount": 3
+    },
+    "Satisfaction" : {
+        "title": "Satisfaction",
+        "greenSectionCount": 15,
+        "yellowSectionCount": 25,
+        "redSectionCount": 3
+    },
+    "Performance" : {
+        "title": "Performance",
+        "greenSectionCount": 9,
+        "yellowSectionCount": 5,
+        "redSectionCount": 4
+    }
+}
